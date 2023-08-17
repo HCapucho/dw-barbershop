@@ -13,6 +13,7 @@ sealed class BarbershopTheme {
 
   static ThemeData themeData = ThemeData(
     useMaterial3: true,
+    fontFamily: FontConstants.fontFamily,
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
@@ -23,6 +24,15 @@ sealed class BarbershopTheme {
       errorBorder: _defaultInputBorder.copyWith(
         borderSide: const BorderSide(
           color: ColorsConstants.red,
+        ),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white,
+        backgroundColor: ColorsConstants.brown,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
       ),
     ),
