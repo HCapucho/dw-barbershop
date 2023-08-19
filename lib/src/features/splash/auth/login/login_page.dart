@@ -1,5 +1,7 @@
 import 'package:dw_barbershop/src/core/ui/constants.dart';
 import 'package:dw_barbershop/src/core/ui/helpers/form_helper.dart';
+import 'package:dw_barbershop/src/core/ui/helpers/messages.dart';
+import 'package:dw_barbershop/src/features/splash/auth/login/login_state.dart';
 import 'package:dw_barbershop/src/features/splash/auth/login/login_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +28,28 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final loginVM = ref.watch(loginVmProvider.notifier);
+    final LoginVm(:login) = ref.watch(loginVmProvider.notifier);
+
+    ref.listen(loginVmProvider, (_, state) {
+      switch (state) {
+        case LoginState(status: LoginStateStatus.initial):
+          break;
+        case LoginState(status: LoginStateStatus.error, :final errorMessage?):
+          Messages.showError(errorMessage, context);
+          break;
+        case LoginState(status: LoginStateStatus.error):
+          Messages.showError('Erro ao realizar login', context);
+          break;
+        case LoginState(status: LoginStateStatus.admLogin):
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/home/adm', (route) => false);
+          break;
+        case LoginState(status: LoginStateStatus.employeeLogin):
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/home/employee', (route) => false);
+          break;
+      }
+    });
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -113,7 +136,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(56),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              switch (formKey.currentState?.validate()) {
+                                case (false || null):
+                                  Messages.showError(
+                                      'Campos inválidos', context);
+                                  break;
+                                case true:
+                                  login(emailEC.text, passwordEC.text);
+                              }
+                            },
                             child: const Text('ACESSAR'),
                           ),
                         ],
