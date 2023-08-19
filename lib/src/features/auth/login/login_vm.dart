@@ -2,7 +2,7 @@ import 'package:asyncstate/class/async_loader_handler.dart';
 import 'package:dw_barbershop/src/core/exceptions/service_exception.dart';
 import 'package:dw_barbershop/src/core/fp/either.dart';
 import 'package:dw_barbershop/src/core/providers/application_providers.dart';
-import 'package:dw_barbershop/src/features/splash/auth/login/login_state.dart';
+import 'package:dw_barbershop/src/features/auth/login/login_state.dart';
 import 'package:dw_barbershop/src/models/user_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
