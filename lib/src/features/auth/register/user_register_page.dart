@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserRegisterPage extends StatelessWidget {
+class UserRegisterPage extends ConsumerStatefulWidget {
   const UserRegisterPage({super.key});
 
+  @override
+  ConsumerState<UserRegisterPage> createState() => _UserRegisterPageState();
+}
+
+class _UserRegisterPageState extends ConsumerState<UserRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
